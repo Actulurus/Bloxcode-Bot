@@ -1,32 +1,33 @@
-import { Client, GatewayIntentBits, IntentsBitField, REST, Routes } from "discord.js";
-import commands from "./commands.js";
 import "dotenv/config";
+import { Client, REST, Routes } from "discord.js";
+import client from "./client.js";
+import commands from "./commands.js";
+import eventHandler from "./eventHandler.js";
+
 
 const token = process.env.TOKEN;
-const AppID = process.env.APPLICATIONID;
+const clientID = process.env.CLIENTID;
 
 const rest = new REST().setToken(token);
 
-const client = new Client({
-    intents: [
-        GatewayIntentBits.GuildMembers,
-        GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildPresences,
-    ]
-});
-
 
 (async () => {
-    await rest.put(Routes.applicationCommands(AppID), {
-        commands
-    });
+    try {
+        console.log("creating commands")
+
+        await rest.put(Routes.applicationCommands(clientID), {
+            body: commands
+        },);
+
+    } catch (err) {
+        console.log(err);
+    }
+})();
+
+client.on('ready', () => {
+    console.log("Logged in");
 });
 
-client.on("messageCreate", (msg) => {
-    if (msg.content === "ping") {
-        msg.reply("Pong");
-    }
-});
+eventHandler();
 
 client.login(token);
