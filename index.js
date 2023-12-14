@@ -4,6 +4,7 @@ import client from "./client.js";
 import commands from "./commands.js";
 import { sendWelcomeMessage } from "./welcome.js";
 import "dotenv/config";
+import eventHandler from "./eventHandler.js";
 
 const token = process.env.TOKEN;
 const clientID = process.env.CLIENTID;
@@ -31,5 +32,7 @@ client.on("guildMemberAdd", (member) => {
 client.on('ready', () => {
     console.log("Logged in");
 });
+
+eventHandler()
 
 client.login(token);

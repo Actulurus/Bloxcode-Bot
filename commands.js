@@ -26,7 +26,25 @@ const commands = [
                 description: "the embed description",
                 type: ApplicationCommandOptionType.String,
                 required: true
-            }
+            },
+            {
+                name: "color",
+                description: "the embed color",
+                type: ApplicationCommandOptionType.String,
+                // required: true
+            }, 
+            {
+                name: "image",
+                description: "the embed image",
+                type: ApplicationCommandOptionType.String,
+                // required: true
+            },
+            {
+                name: "thumbnail",
+                description: "the embed thumbnail",
+                type: ApplicationCommandOptionType.String,
+                // required: true
+            },
         ]
     }
 ];
