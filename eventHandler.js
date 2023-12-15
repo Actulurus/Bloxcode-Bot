@@ -20,6 +20,11 @@ export default function eventHandler() {
                 interaction.reply(`Created Embed in ${channel.name}`);
             } else if (interaction.commandName === "setup") {
                 const channel = interaction.options.getChannel("channel");
+                const title = interaction.options.getString("title");
+                const description = interaction.options.getString("description");
+                const color = interaction.options.getString("color");
+                const image = interaction.options.getString("image");
+                const thumbnail = interaction.options.getString("button_text");
                 setup();
             }
         }

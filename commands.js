@@ -46,6 +46,48 @@ const commands = [
                 // required: true
             },
         ]
+    },
+    {
+        name: "setup",
+        description: "setup order channel",
+        options: [
+            {
+                name: "channel",
+                description: "channel to setup in",
+                type: ApplicationCommandOptionType.Channel,
+                required: true
+            },
+            {
+                name: "title",
+                description: "the embed title",
+                type: ApplicationCommandOptionType.String,
+                required: true
+            },
+            {
+                name: "description",
+                description: "the embed description",
+                type: ApplicationCommandOptionType.String,
+                required: true
+            },
+            {
+                name: "color",
+                description: "the embed color",
+                type: ApplicationCommandOptionType.String,
+                // required: true
+            },
+            {
+                name: "image",
+                description: "the embed image",
+                type: ApplicationCommandOptionType.String,
+                // required: true
+            },
+            {
+                name: "button_text",
+                description: "the buttons text",
+                type: ApplicationCommandOptionType.String,
+                // required: true
+            },
+        ]
     }
 ];
 
