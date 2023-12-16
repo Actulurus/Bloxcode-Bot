@@ -70,6 +70,12 @@ const commands = [
                 required: true
             },
             {
+                name: "button_text",
+                description: "the buttons text",
+                type: ApplicationCommandOptionType.String,
+                required: true
+            },
+            {
                 name: "color",
                 description: "the embed color",
                 type: ApplicationCommandOptionType.String,
@@ -78,12 +84,6 @@ const commands = [
             {
                 name: "image",
                 description: "the embed image",
-                type: ApplicationCommandOptionType.String,
-                // required: true
-            },
-            {
-                name: "button_text",
-                description: "the buttons text",
                 type: ApplicationCommandOptionType.String,
                 // required: true
             },
