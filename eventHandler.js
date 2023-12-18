@@ -1,4 +1,4 @@
-import { PermissionFlagsBits } from "discord.js";
+import { ChannelType, PermissionFlagsBits } from "discord.js";
 import client from "./client.js";
 import sendEmbed from "./Events/embed.js";
 import setup from "./Events/setup.js";
@@ -27,10 +27,27 @@ export default function eventHandler() {
                 const text = interaction.options.getString("button_text");
                 setup(channel, title, description, text, image, color);
                 interaction.reply({ content: `Setup in ${channel.name}!`, ephemeral: true });
-            }else if(interaction.isButton()){
-                if (interaction.customId === "order_button"){
-                    interaction.reply("What up")
+            } else if (interaction.isButton()) {
+                if (interaction.customId === "order_button") {
+                    interaction.guild.channels.create({
+                        name: `ticket`,
+                        type: ChannelType.GuildText,
+                        permissionOverwrites: [
+                            {
+                                id: interaction.user.id,
+                                allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]
+                            },
+                            {
+                                id: interaction.guild.roles.everyone.id,
+                                deny: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]
+                            }
+                        ]
+                    }).then(channel => {
+                        channel.send(`<@${interaction.user.id}> Please wait til someone reaches you.`);
+                        interaction.reply({ content: `Created Ticket <#${channel.id}>`, ephemeral: true });
+                    });
                 }
+
             }
         }
     });
