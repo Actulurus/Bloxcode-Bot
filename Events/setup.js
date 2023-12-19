@@ -1,5 +1,12 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } from "discord.js";
-export default function setup(channel, title, description, buttonText, image, color) {
+export default function setup(interaction) {
+    const channel = interaction.options.getChannel("channel");
+    const title = interaction.options.getString("title");
+    const description = interaction.options.getString("description");
+    const color = interaction.options.getString("color");
+    const image = interaction.options.getString("image");
+    const text = interaction.options.getString("button_text");
+
     const newEmbed = new EmbedBuilder()
         .setTitle(title)
         .setDescription(description);
@@ -14,7 +21,6 @@ export default function setup(channel, title, description, buttonText, image, co
 
     const row = new ActionRowBuilder();
 
-
     const orderButton = new ButtonBuilder()
         .setCustomId("order_button")
         .setStyle(ButtonStyle.Success)
@@ -24,4 +30,6 @@ export default function setup(channel, title, description, buttonText, image, co
     row.addComponents(orderButton);
 
     channel.send({ embeds: [newEmbed], components: [row] });
+
+    interaction.reply({ content: `Setup in ${channel.name}!`, ephemeral: true });
 }
