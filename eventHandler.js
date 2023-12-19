@@ -1,7 +1,8 @@
-import { ChannelType, PermissionFlagsBits } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, EmbedBuilder, PermissionFlagsBits } from "discord.js";
 import client from "./client.js";
 import sendEmbed from "./Events/embed.js";
 import setup from "./Events/setup.js";
+import Ticket from "./Events/ticket.js"
 
 export default function eventHandler() {
     client.on("interactionCreate", (interaction) => {
@@ -29,23 +30,8 @@ export default function eventHandler() {
                 interaction.reply({ content: `Setup in ${channel.name}!`, ephemeral: true });
             } else if (interaction.isButton()) {
                 if (interaction.customId === "order_button") {
-                    interaction.guild.channels.create({
-                        name: `ticket`,
-                        type: ChannelType.GuildText,
-                        permissionOverwrites: [
-                            {
-                                id: interaction.user.id,
-                                allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]
-                            },
-                            {
-                                id: interaction.guild.roles.everyone.id,
-                                deny: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]
-                            }
-                        ]
-                    }).then(channel => {
-                        channel.send(`<@${interaction.user.id}> Please wait til someone reaches you.`);
-                        interaction.reply({ content: `Created Ticket <#${channel.id}>`, ephemeral: true });
-                    });
+                   Ticket()
+                   
                 }
 
             }
