@@ -2,7 +2,9 @@ import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, EmbedBuilder
 import client from "./client.js";
 import sendEmbed from "./Events/embed.js";
 import setup from "./Events/setup.js";
-import Ticket from "./Events/ticket.js"
+import Ticket from "./Events/ticket.js";
+import closeReason from "./Events/closeReason.js";
+import closeTicket from "./Events/closeTicket.js";
 
 export default function eventHandler() {
     client.on("interactionCreate", (interaction) => {
@@ -13,12 +15,17 @@ export default function eventHandler() {
                 if (!interaction.member.permissions.has(PermissionFlagsBits.KickMembers)) return;
                 sendEmbed(interaction);
             } else if (interaction.commandName === "setup") {
-                setup(interaction)
+                setup(interaction);
             } else if (interaction.isButton()) {
                 if (interaction.customId === "order_button") {
-                   Ticket() 
+                    Ticket(interaction);
+                } else if (interaction.customId === "close") {
+                    closeReason(interaction);
                 }
-
+            } else if (interaction.isModalSubmit()) {
+                if (interaction.customId === "modal") {
+                    closeTicket(interaction);
+                }
             }
         }
     });

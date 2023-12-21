@@ -1,4 +1,5 @@
-import { ButtonBuilder, ActionRowBuilder, EmbedBuilder, PermissionFlagsBits } from "discord.js";
+import { ButtonBuilder, ActionRowBuilder, EmbedBuilder, PermissionFlagsBits,ButtonStyle,ChannelType } from "discord.js";
+
 export default function Ticket(interaction) {
     const row = new ActionRowBuilder();
 
