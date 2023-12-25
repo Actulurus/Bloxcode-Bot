@@ -5,6 +5,7 @@ import setup from "./Events/setup.js";
 import Ticket from "./Events/ticket.js";
 import closeReason from "./Events/closeReason.js";
 import closeTicket from "./Events/closeTicket.js";
+import claim from "./Events/claim.js";
 
 export default function eventHandler() {
     client.on("interactionCreate", (interaction) => {
@@ -21,6 +22,8 @@ export default function eventHandler() {
                     Ticket(interaction);
                 } else if (interaction.customId === "close") {
                     closeReason(interaction);
+                } else if (interaction.customId === "claim") {
+                    claim(interaction);
                 }
             } else if (interaction.isModalSubmit()) {
                 if (interaction.customId === "modal") {
