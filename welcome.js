@@ -1,6 +1,6 @@
-import "dotenv/config";
-import fs from 'fs';
-import { config } from "process";
+const dotenv = require("dotenv");
+dotenv.config();
+const fs = require("fs");
 
 const rawData = fs.readFileSync('config.json');
 const configData = JSON.parse(rawData);
@@ -15,4 +15,4 @@ function sendWelcomeMessage(member) {
     }
 }
 
-export { sendWelcomeMessage };
+module.exports = { sendWelcomeMessage };

@@ -1,7 +1,9 @@
-import { EmbedBuilder } from "discord.js";
-import client from "../client.js";
+const { EmbedBuilder } = require("discord.js");
 
-export default function sendEmbed(interaction) {
+module.exports = function sendEmbed(interaction) {
+    if (!interaction.isChatInputCommand()) return;
+    if (interaction.commandName !== "embed") return;
+    console.log("Running")
     const channel = interaction.options.getChannel("channel");
     const title = interaction.options.getString("title");
     const description = interaction.options.getString("description");

@@ -1,5 +1,7 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } from "discord.js";
-export default function setup(interaction) {
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require("discord.js");
+module.exports = function setup(interaction) {
+    if (!interaction.isChatInputCommand()) return;
+    if (interaction.commandName !== "setup") return;
     const channel = interaction.options.getChannel("channel");
     const title = interaction.options.getString("title");
     const description = interaction.options.getString("description");
@@ -32,4 +34,4 @@ export default function setup(interaction) {
     channel.send({ embeds: [newEmbed], components: [row] });
 
     interaction.reply({ content: `Setup in ${channel.name}!`, ephemeral: true });
-}
+};

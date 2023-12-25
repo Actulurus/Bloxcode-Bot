@@ -1,4 +1,4 @@
-import { Client, IntentsBitField } from "discord.js";
+const { Client, IntentsBitField } = require("discord.js");
 
 const client = new Client({
     intents: [
@@ -10,4 +10,4 @@ const client = new Client({
     ]
 });
 
-export default client
+module.exports = client;

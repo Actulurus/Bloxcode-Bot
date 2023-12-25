@@ -2,7 +2,10 @@ import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, EmbedBuilder
 import client from "./client.js";
 import sendEmbed from "./Events/embed.js";
 import setup from "./Events/setup.js";
-import Ticket from "./Events/ticket.js"
+import Ticket from "./Events/ticket.js";
+import closeReason from "./Events/closeReason.js";
+import closeTicket from "./Events/closeTicket.js";
+import claim from "./Events/claim.js";
 
 export default function eventHandler() {
     client.on("interactionCreate", (interaction) => {
@@ -11,29 +14,21 @@ export default function eventHandler() {
                 interaction.reply("Pong!");
             } else if (interaction.commandName === "embed") {
                 if (!interaction.member.permissions.has(PermissionFlagsBits.KickMembers)) return;
-                const channel = interaction.options.getChannel("channel");
-                const title = interaction.options.getString("title");
-                const description = interaction.options.getString("description");
-                const color = interaction.options.getString("color");
-                const image = interaction.options.getString("image");
-                const thumbnail = interaction.options.getString("thumbnail");
-                sendEmbed(channel, title, description, color, image, thumbnail);
-                interaction.reply({ content: `Created Embed in ${channel.name}!`, ephemeral: true });
+                sendEmbed(interaction);
             } else if (interaction.commandName === "setup") {
-                const channel = interaction.options.getChannel("channel");
-                const title = interaction.options.getString("title");
-                const description = interaction.options.getString("description");
-                const color = interaction.options.getString("color");
-                const image = interaction.options.getString("image");
-                const text = interaction.options.getString("button_text");
-                setup(channel, title, description, text, image, color);
-                interaction.reply({ content: `Setup in ${channel.name}!`, ephemeral: true });
+                setup(interaction);
             } else if (interaction.isButton()) {
                 if (interaction.customId === "order_button") {
-                   Ticket()
-                   
+                    Ticket(interaction);
+                } else if (interaction.customId === "close") {
+                    closeReason(interaction);
+                } else if (interaction.customId === "claim") {
+                    claim(interaction);
                 }
-
+            } else if (interaction.isModalSubmit()) {
+                if (interaction.customId === "modal") {
+                    closeTicket(interaction);
+                }
             }
         }
     });

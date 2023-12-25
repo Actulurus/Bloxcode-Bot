@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType } from "discord.js";
+const { ApplicationCommandOptionType } = require("discord.js");
 
 const commands = [
     {
@@ -32,7 +32,7 @@ const commands = [
                 description: "the embed color",
                 type: ApplicationCommandOptionType.String,
                 // required: true
-            }, 
+            },
             {
                 name: "image",
                 description: "the embed image",
@@ -91,4 +91,4 @@ const commands = [
     }
 ];
 
-export default commands;
+module.exports = commands

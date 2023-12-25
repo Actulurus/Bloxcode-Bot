@@ -1,6 +1,9 @@
-import { ButtonBuilder, ActionRowBuilder, EmbedBuilder, PermissionFlagsBits,ButtonStyle,ChannelType } from "discord.js";
+const { ButtonBuilder, ActionRowBuilder, EmbedBuilder, PermissionFlagsBits, ButtonStyle, ChannelType } = require("discord.js");
 
-export default function Ticket(interaction) {
+module.exports = function Ticket(interaction) {
+    if (!interaction.isButton()) return;
+    if (interaction.customId !== "order_button") return;
+
     const row = new ActionRowBuilder();
 
     const close = new ButtonBuilder()
@@ -35,4 +38,4 @@ export default function Ticket(interaction) {
         channel.send({ embeds: [embed], components: [row] });
         interaction.reply({ content: `Created Ticket <#${channel.id}>`, ephemeral: true });
     });
-}
+};

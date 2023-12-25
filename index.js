@@ -1,10 +1,10 @@
-import "dotenv/config";
-import { Client, REST, Routes } from "discord.js";
-import client from "./client.js";
-import commands from "./commands.js";
-import { sendWelcomeMessage } from "./welcome.js";
-import "dotenv/config";
-import eventHandler from "./eventHandler.js";
+const { Client, REST, Routes }  = require("discord.js")
+const client = require("./client.js");
+const commands = require("./commands.js");
+const { sendWelcomeMessage } = require("./welcome.js");
+const dotenv = require("dotenv");
+dotenv.config()
+const eventHandler = require("./eventHandler.js");
 
 const token = process.env.TOKEN;
 const clientID = process.env.CLIENTID;

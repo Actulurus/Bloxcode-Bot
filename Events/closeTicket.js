@@ -1,6 +1,8 @@
-import { ActionRowBuilder, EmbedBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
+const { ActionRowBuilder, EmbedBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = require("discord.js");
 
-export default function closeTicket(interaction) {
+module.exports = function closeTicket(interaction) {
+    if (!interaction.isModalSubmit()) return;
+    if (interaction.customId !== "modal") return;
     const reason = interaction.fields.getTextInputValue("reason_input");
     const channel = interaction.guild.channels.cache.find(channel => channel.name === "bot");
     const embed = new EmbedBuilder()

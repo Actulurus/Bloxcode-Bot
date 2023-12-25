@@ -1,6 +1,8 @@
-import { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
+const { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = require("discord.js");
 
-export default function closeReason(interaction){
+module.exports = function closeReason(interaction){
+    if (!interaction.isButton()) return;
+    if (interaction.customId !== "close") return;
     const modal = new ModalBuilder()
     .setCustomId(`modal`)
     .setTitle("Reason")
