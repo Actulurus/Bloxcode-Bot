@@ -6,6 +6,18 @@ const commands = [
         description: "pong",
     },
     {
+        name: "tax",
+        description: "calculate roblox tax",
+        options: [
+            {
+                name: "amount",
+                description: "amount of robux to calculate",
+                type: ApplicationCommandOptionType.Integer,
+                required: true,
+            }
+        ]
+    },
+    {
         name: "embed",
         description: "send a embed message in a channel with the bot.",
         options: [
@@ -91,4 +103,4 @@ const commands = [
     }
 ];
 
-module.exports = commands
+module.exports = commands;
