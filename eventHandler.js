@@ -1,5 +1,6 @@
 const fs = require("fs");
 const client = require("./client.js");
+const { PermissionsBitField } = require("discord.js");
 
 const EventsFolder = fs.readdirSync(`./Events`);
 

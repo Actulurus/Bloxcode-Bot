@@ -1,5 +1,9 @@
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require("discord.js");
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, PermissionFlagsBits } = require("discord.js");
+
 module.exports = function setup(interaction) {
+    if (!interaction.member.permissions.has(PermissionFlagsBits.ManageMessages)) {
+        return interaction.reply({ content: `You are not a Mod!`, ephemeral: true });
+    }
     if (!interaction.isChatInputCommand()) return;
     if (interaction.commandName !== "setup") return;
     const channel = interaction.options.getChannel("channel");
@@ -26,7 +30,7 @@ module.exports = function setup(interaction) {
     const orderButton = new ButtonBuilder()
         .setCustomId("order_button")
         .setStyle(ButtonStyle.Success)
-        .setLabel(buttonText)
+        .setLabel(text)
         .setEmoji("📦");
 
     row.addComponents(orderButton);

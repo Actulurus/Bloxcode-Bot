@@ -1,6 +1,10 @@
 const { EmbedBuilder } = require("discord.js");
+const { PermissionFlagsBits } = require("discord.js");
 
 module.exports = function sendEmbed(interaction) {
+    if (!interaction.member.permissions.has(PermissionFlagsBits.ManageMessages)) {
+        return interaction.reply({ content: `You are not a Mod!`, ephemeral: true });
+    }
     if (!interaction.isChatInputCommand()) return;
     if (interaction.commandName !== "embed") return;
     console.log("Running")
