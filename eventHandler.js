@@ -4,13 +4,17 @@ const { PermissionsBitField } = require("discord.js");
 
 const EventsFolder = fs.readdirSync(`./Events`);
 
-console.log(EventsFolder)
+console.log(EventsFolder);
 
 module.exports = function eventHandler() {
-    client.on("interactionCreate", async(interaction) => {
-        for (const Event of EventsFolder) {
-            const loggedEvent = require(`./Events/${Event}`);
-            await loggedEvent(interaction);
+    client.on("interactionCreate", async (interaction) => {
+        try {
+            for (const Event of EventsFolder) {
+                const loggedEvent = require(`./Events/${Event}`);
+                await loggedEvent(interaction);
+            }
+        } catch (err) {
+            console.log(err);
         }
     });
 }

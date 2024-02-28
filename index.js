@@ -5,6 +5,7 @@ const { sendWelcomeMessage } = require("./welcome.js");
 const dotenv = require("dotenv");
 dotenv.config()
 const eventHandler = require("./eventHandler.js");
+const { default: mongoose } = require("mongoose");
 
 const token = process.env.TOKEN;
 const clientID = process.env.CLIENTID;
@@ -12,13 +13,18 @@ const clientID = process.env.CLIENTID;
 const rest = new REST().setToken(token);
 
 
+
 (async () => {
     try {
         console.log("creating commands");
-
+        
         await rest.put(Routes.applicationCommands(clientID), {
             body: commands
         },);
+        
+        await mongoose.connect(process.env.APIKEY).then(()=>{
+            console.log("Connected to db");
+        })
 
     } catch (err) {
         console.log(err);
